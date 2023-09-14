@@ -1,0 +1,614 @@
+openapi: 3.0.0
+info:
+  title: Ticketly App API specification
+  version: 1.0.0
+  description: The API Specification for the MAD II project
+  contact:
+    email: "21f1006310@ds.study.iitm.ac.in"
+servers:
+  - url: http://127.0.0.1:5000
+paths:
+  /api/show/{venue_id}/post:
+    description: Endpoint to add a show to the venue associated with venue_id
+    post:
+      tags:
+        - Shows
+      operationId: createShow
+      description: Operation to Create a show
+      parameters:
+        - in: path
+          name: venue_id
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '201':
+          description: Successfully created
+          content:
+            application/json:
+              schema:
+                title: show object
+                type: object
+                properties:
+                  show_id:
+                    type: integer
+                    example: 1
+                  venue_id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: cinemas
+                  timing:
+                    type: string
+                    example: "2023-04-07 23:23"
+                  price:
+                    type: integer
+                    example: 100
+                  tags:
+                    type: string
+                    example: action
+        '400':
+          description: Bad request
+  /api/show/{show_id}:
+    description: Endpoint to Read, Update, Delete a show associated with show_id
+    get:
+      tags:
+        - Shows
+      operationId: getShow
+      description: Operation to Read a show.
+      parameters:
+        - in: path
+          name: show_id
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Request Successful
+          content:
+            application/json:
+              schema:
+                title: show object
+                type: object
+                properties:
+                  show_id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: cinemas
+                  timing:
+                    type: string
+                    example: "2023-04-07 23:23"
+                  price:
+                    type: integer
+                    example: 100
+                  tags:
+                    type: string
+                    example: action
+        '400':
+          description: Bad request, show not found
+        '404':
+          description: Show not found
+    delete:
+      tags:
+        - Shows
+      operationId: deleteShow
+      description: Operation to Delete a show.
+      parameters:
+        - in: path
+          name: show_id
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '204':
+          description: Successfully deleted
+        '404':
+          description: Show not found
+    put:
+      tags:
+        - Shows
+      operationId: updateShow
+      description: Operation to Edit a show.
+      parameters:
+        - in: path
+          name: show_id
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '201':
+          description: Request Successful
+          content:
+            application/json:
+              schema:
+                title: show object
+                type: object
+                properties:
+                  show_id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: cinemas
+                  timing:
+                    type: string
+                    example: "2023-04-07 23:23"
+                  price:
+                    type: integer
+                    example: 100
+                  tags:
+                    type: string
+                    example: action
+        '404':
+          description: Show not found
+  /api/venue:
+    description: End point to add a venue
+    post:
+      tags:
+        - Venues
+      operationId: createVenue
+      description: Operation to Create a venue
+      responses:
+        '201':
+          description: Successfully created
+          content:
+            application/json:
+              schema:
+                title: venue object
+                type: object
+                properties:
+                  venue_id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: cinemas
+                  place:
+                    type: string
+                    example: action
+                  capacity:
+                    type: integer
+                    example: 100
+        '400':
+          description: Bad request
+  /api/venue/{id}:
+    description: Endpoint to Read, Update, Delete a venue associated with venue id
+    get:
+      tags:
+        - Venues
+      operationId: getVenue
+      description: Operation to Read a venue.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Request Successful
+          content:
+            application/json:
+              schema:
+                title: venue object
+                type: object
+                properties:
+                  venue_id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: cinemas
+                  place:
+                    type: string
+                    example: action
+                  capacity:
+                    type: integer
+                    example: 100
+        '404':
+          description: Venue not found
+    delete:
+      tags:
+        - Venues
+      operationId: deleteVenue
+      description: Operation to Delete a venue.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '204':
+          description: Successfully deleted
+        '404':
+          description: Venue not found
+    put:
+      tags:
+        - Venues
+      operationId: updateVenue
+      description: Operation to Edit a venue.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '201':
+          description: Request Successful
+          content:
+            application/json:
+              schema:
+                title: venue object
+                type: object
+                properties:
+                  venue_id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: cinemas
+                  place:
+                    type: string
+                    example: action
+                  capacity:
+                    type: integer
+                    example: 100
+        '404':
+          description: Venue not found
+  /api/venues:
+    description: End point to get a list of all venues
+    get:
+      tags:
+        - Venues
+      operationId: getAllVenues
+      description: Operation to read all venues
+      responses:
+        '200':
+          description: Request Successful
+          content:
+            application/json:
+              schema:
+                title: venue list
+                type: array
+                items:
+                  type: object
+                  properties:
+                    venue_id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: cinemas
+                    place:
+                      type: string
+                      example: action
+                    capacity:
+                      type: integer
+                      example: 100
+                    shows:
+                      type: array
+                      example: ["a", "b", "c"]
+  /api/shows:
+    description: End point to get a list of all shows searched by the user
+    get:
+      tags:
+        - Shows
+      operationId: getAllShows
+      description: Operation to read all shows
+      responses:
+        '200':
+          description: Request Successful
+          content:
+            application/json:
+              schema:
+                title: show list
+                type: array
+                items:
+                  type: object
+                  properties:
+                    show_id:
+                      type: integer
+                      example: 1
+                    show_name:
+                      type: string
+                      example: cinemas
+                    rating:
+                      type: integer
+                      example: 1
+                    tag:
+                      type: string
+                      example: cinemas
+                    price:
+                      type: integer
+                      example: 100
+                    timing:
+                      type: string
+                      example: "2023-03-14 23:23"
+                    venue_id:
+                      type: integer
+                      example: 1
+                    venue_name:
+                      type: string
+                      example: cinemas
+                    place:
+                      type: string
+                      example: action
+  /api/locations:
+    description: End point to get a list of all venue locations
+    get:
+      tags:
+        - Locations
+      operationId: getAllLocations
+      description: Operation to read all venue locations
+      responses:
+        '200':
+          description: Request Successful
+          content:
+            application/json:
+              schema:
+                title: location list
+                type: array
+                items:
+                  type: object
+                  properties:
+                    location:
+                      type: string
+                      example: abcd
+  /api/tags:
+    description: End point to get a list of all tags
+    get:
+      tags:
+        - Tags
+      operationId: getAllTags
+      description: Operation to read all tags
+      responses:
+        '200':
+          description: Request Successful
+          content:
+            application/json:
+              schema:
+                title: tags list
+                type: array
+                items:
+                  type: object
+                  properties:
+                    tag:
+                      type: string
+                      example: abcd
+  /api/booking/{show_id}:
+    description: End point to get a list of all venues
+    post:
+      tags:
+        - Bookings
+      operationId: createBooking
+      description: createa=s a new booking
+      parameters:
+        - in: path
+          name: show_id
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Request Successful
+          content:
+            application/json:
+              schema:
+                title: booking object
+                type: object
+                properties:
+                  booking_id:
+                    type: integer
+                    example: 1
+                  user_id:
+                    type: integer
+                    example: 1
+                  show_id:
+                    type: integer
+                    example: 1
+                  no_of_tickets:
+                    type: integer
+                    example: 1
+        '400':
+          description: Bad request. houseful.
+  /api/bookings:
+    get:
+      tags:
+        - Bookings
+      operationId: getAllBookings
+      description: End point to get a list of all bookings by a user
+      responses:
+        '200':
+          description: Request Successful
+          content:
+            application/json:
+              schema:
+                title: booking object
+                type: object
+                properties:
+                  booking_id:
+                    type: integer
+                    example: 1
+                  venue_id:
+                    type: integer
+                    example: 1
+                  show_id:
+                    type: integer
+                    example: 1
+                  no_of_tickets:
+                    type: integer
+                    example: 1
+                  show_name:
+                    type: string
+                    example: honey
+                  venue_name:
+                    type: string
+                    example: cinemas
+                  timing:
+                    type: string
+                    example: "2023-03-14 23:23"
+  /api/rating/{booking_id}:
+    description: End point to give a show a rating
+    patch:
+      tags:
+        - Ratings
+      operationId: rateShow
+      description: End point to Patch new ratings
+      parameters:
+        - in: path
+          name: booking_id
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '204':
+          description: Request successful
+        '400':
+          description: Bad request
+        '404':
+          description: Booking not found
+  /api/register:
+    description: End point to register a new user or admin
+    post:
+      tags:
+        - Authentication
+      operationId: register
+      description: Operation to Register a user or admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                role:
+                  type: string
+                  enum: [user, admin]
+      responses:
+        '201':
+          description: Successfully registered
+        '400':
+          description: Bad request
+  /api/login:
+    description: End point to authenticate a user or admin
+    post:
+      tags:
+        - Authentication
+      operationId: login
+      description: Operation to Authenticate a user or admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                role:
+                  type: string
+                  enum: [user, admin]
+      responses:
+        '200':
+          description: Successfully authenticated
+        '400':
+          description: Bad request
+  /api/graph-ratings/{venue_id}:
+    description: End point to get show ratings for a specific venue
+    get:
+      tags:
+        - Graph
+      operationId: getShowRatingsByVenue
+      description: Operation to Get show ratings for a specific venue
+      parameters:
+        - in: path
+          name: venue_id
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Request Successful
+          content:
+            application/json:
+              schema:
+                title: show ratings list
+                type: array
+                items:
+                  type: object
+                  properties:
+                    show_id:
+                      type: integer
+                      example: 1
+                    show_name:
+                      type: string
+                      example: cinemas
+                    show_rating:
+                      type: integer
+                      example: 4
+                    booking_ratings:
+                      type: array
+                      items:
+                        type: integer
+                        example: 4
+  /api/preference:
+    description: End point to change monthly export data type preference
+    patch:
+      tags:
+        - Preference
+      operationId: changePreference
+      description: End point to Patch new preference
+      responses:
+        '200':
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                title: preference
+                type: array
+                items:
+                  type: object
+                  properties:
+                    preference:
+                      type: string
+                      example: PDF
+    get:
+      tags:
+        - Preference
+      operationId: getPreference
+      description: End point to get the preference
+      responses:
+        '200':
+          description: Request successful
+          content:
+            application/json:
+              schema:
+                title: preference
+                type: array
+                items:
+                  type: object
+                  properties:
+                    preference:
+                      type: string
+                      example: PDF

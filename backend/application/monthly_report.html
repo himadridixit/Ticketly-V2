@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        .section {
+            margin-top: 20px;
+        }
+        
+        .details {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        .details th,
+        .details td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .details th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Monthly Report</h1>
+    <div class="section">
+        <h2>Summary</h2>
+        <p>Total Bookings: {{ report_data.booking_count }}</p>
+        <p>Total Amount Spent: ${{ report_data.total_amount_spent }}</p>
+        <p>Most Visited Venue: {{ report_data.most_visited_venue }}</p>
+    </div>
+    <div class="section">
+        <h2>Booking Details</h2>
+        <table class="details">
+            <tr>
+                <th>Booking ID</th>
+                <th>Rating</th>
+                <th>Amount Spent</th>
+                <th>Place</th>
+                <th>Venue</th>
+            </tr>
+            {% for booking in report_data.booking_details %}
+            <tr>
+                <td>{{ booking.booking_id }}</td>
+                <td>{{ booking.rating }}</td>
+                <td>${{ booking.amount_spent }}</td>
+                <td>{{ booking.place }}</td>
+                <td>{{ booking.venue }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+
+</html>
